@@ -15,16 +15,6 @@ Tco.reconfigure conf
 module Terminal
 	@supported_types = ["RGB", "HEX", "GRAY"]
 
-	private
-	
-    def self.out(image)
-    	image.each do |row|
-        	puts row.map { |c| ".".bg c }.join ""
-        end
-    end
-
-    public
-
     def self.hex_to_rgb(image)
     end
 
@@ -32,7 +22,7 @@ module Terminal
     	image.map { |row| row.map { |el| [el,el,el]}}
     end
     
-	def self.show_image(image, image_type="RGB")
+	def self.display_image(image, image_type="RGB")
 		raise TypeError  unless @supported_types.include? image_type
 
 		case image_type
@@ -42,8 +32,18 @@ module Terminal
 				out(gray_to_rgb(image))
 		end
 	end
-end
 
-# puts Terminal.gray_to_rgb([[1,2,3]]).to_s
-grad = [[105] * 60, [60]*15]
-Terminal.show_image(grad, "GRAY")
+	def self.display_list(list)
+		list.each do |el|
+			puts ("[+]".fg [0,255,0]) + " " + (el.to_s.fg [255,255,0])
+		end
+	end
+	
+	private
+	
+    def self.out(image)
+    	image.each do |row|
+        	puts row.map { |c| " ".bg c }.join ""
+        end
+    end
+end
