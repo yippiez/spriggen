@@ -19,7 +19,7 @@ module Terminal
 	
     def self.out(image)
     	image.each do |row|
-        	puts row.map { |c| " ".bg c }.join ""
+        	puts row.map { |c| ".".bg c }.join ""
         end
     end
 
